@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="quotes"></div>
+
+    <div id="author"> </div>
+    <button id= "newQ">new Quotes</button>
+    
+
+    <script>
+        const quotes = document.getElementById("quotes");
+        const author = document.getElementById("author");
+        const newQ   = document.getElementById("newQ");     //1 for btn
+
+        let realdata = "";
+        let quotesData = "";
+
+        const getNewQuotes = () => {
+            let rnum = Math.floor(Math.random() * 20 ) ;  // math random give random no 9.088987787 and math  floor give exact valave 1 3 5
+            // console.log(realdata[rnum].author);
+            // quotes.innerText = `${realdata[rnum].text}`    //help to add a data in html new quotes
+            // author.innerText = `${realdata[rnum].author}`
+            quotesData = realdata[rnum];                      // for if aut name is nothing than
+            quotes.innerText = `${quotesData.text}`;
+
+            quotesData.author == null
+            ? (author.innerText = "unknown")
+            : (author.innerText = `${quotesData.author}`);
+
+        };
+
+        const getQuotes = async () => {
+            const api ="https://type.fit/api/quotes";
+            try { 
+                let data = await fetch(api);           //for fetch the api link
+                realdata = await data.json();          // for get the realdata in json
+                // console.log(realData.length);
+                // console.log(realdata[10].text);
+                // console.log(realData[10].author);
+                getNewQuotes();                          //for get random quotes
+
+
+            }catch (error) {
+
+            }
+
+
+        };
+        newQ.addEventListener('click', getNewQuotes)      //2 next
+        getQuotes();
+    </script>
+
+
+</body>
+</html>
